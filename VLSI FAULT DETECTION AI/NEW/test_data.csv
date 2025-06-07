@@ -1,0 +1,401 @@
+code,fault_type,severity,occurrence
+fork #5 rst = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+assign y = rst | rst;,Bridging fault (Assignment may cause bridging faults),6,12
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+wait (clk == 1);,Livelock fault (Wait statement may cause livelock),9,18
+fork #5 clk = 1; join,Delay fault (Delay specification may cause timing issues),6,12
+fork #5 clk = 1; join,Delay fault (Delay specification may cause timing issues),6,12
+assign y = d | b;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = c ^ a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = c ^ c;,Path delay fault (XOR operations may cause path delays),5,10
+assign y = b ^ b;,Bridging fault (Assignment may cause bridging faults),6,12
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+assign y = ~c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+always @(posedge rst) q <= c;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+force clk = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(*) y = c & c;,Combinational loop fault (Level-sensitive always block may cause combinational loops),9,18
+assign y = d & b & rst;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = clk ^ rst;,Bridging fault (Assignment may cause bridging faults),6,12
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+assign y = b ^ a;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+reg [3:0] clk;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+assign y = c & a & b;,Bridging fault (Assignment may cause bridging faults),6,12
+wire [3:0] clk;,Open fault (Wire declaration may lead to open circuits),4,8
+assign y = ~c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+fork #5 clk = 1; join,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 d = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+fork #5 rst = 1; join,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~b;,Bridging fault (Assignment may cause bridging faults),6,12
+reg [3:0] rst;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+assign y = rst ^ b;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+always @(posedge rst) q <= a;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+assign y = c & clk & d;,Path delay fault (AND operations may cause path delays),5,10
+wait (b == 1);,Bridging fault (Assignment may cause bridging faults),6,12
+force c = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge clk) q <= a;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+fork #5 b = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+force d = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = b | a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~c;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+always @(posedge clk) q <= a;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+fork #5 clk = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+assign y = ~clk;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+if (c == 1) y = rst;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+force clk = 1;,Contention fault (Force statement may cause signal contention),7,15
+assign y = ~a;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+force a = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 a = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+reg [3:0] c;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+force c = 1;,Contention fault (Force statement may cause signal contention),7,15
+assign y = b | a;,Path delay fault (OR operations may cause path delays),5,10
+wait (a == 1);,Livelock fault (Wait statement may cause livelock),9,18
+assign y = ~a;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+assign y = clk | c;,Path delay fault (OR operations may cause path delays),5,10
+assign y = clk ^ rst;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+case (d) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = rst & b & rst;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = c & rst & rst;,Bridging fault (Assignment may cause bridging faults),6,12
+wait (b == 1);,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 c = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+assign y = ~a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = d | d;,Path delay fault (OR operations may cause path delays),5,10
+fork #5 d = 1; join,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~d;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+case (d) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = c | a;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = d & rst & clk;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge clk) q <= clk;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+case (clk) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+if (c == 1) y = c;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = rst ^ a;,Path delay fault (XOR operations may cause path delays),5,10
+wire [3:0] a;,Open fault (Wire declaration may lead to open circuits),4,8
+assign y = a & d & c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+force clk = 1;,Contention fault (Force statement may cause signal contention),7,15
+assign y = b | c;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = clk & clk & d;,Path delay fault (AND operations may cause path delays),5,10
+fork #5 b = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+always @(posedge clk) q <= b;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+assign y = rst & c & rst;,Path delay fault (AND operations may cause path delays),5,10
+force clk = 1;,Contention fault (Force statement may cause signal contention),7,15
+assign y = c | a;,Path delay fault (OR operations may cause path delays),5,10
+force c = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+if (d == 1) y = c;,Bridging fault (Assignment may cause bridging faults),6,12
+reg [3:0] b;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+case (rst) 0: y = 1; endcase,Stuck-at fault (Case statements may cause stuck-at faults),7,15
+assign y = clk | clk;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = d | d;,Bridging fault (Assignment may cause bridging faults),6,12
+if (rst == 1) y = b;,Bridging fault (Assignment may cause bridging faults),6,12
+if (b == 1) y = c;,Bridging fault (Assignment may cause bridging faults),6,12
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+case (rst) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+case (b) 0: y = 1; endcase,Stuck-at fault (Case statements may cause stuck-at faults),7,15
+assign y = clk ^ rst;,Path delay fault (XOR operations may cause path delays),5,10
+assign y = d & clk & c;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = c | c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+force b = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~b;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+always @(posedge clk) q <= b;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+if (clk == 1) y = c;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = b & b & d;,Path delay fault (AND operations may cause path delays),5,10
+case (clk) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+always @(*) y = rst & c;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = a & a & b;,Path delay fault (AND operations may cause path delays),5,10
+assign y = clk & b & d;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+fork #5 a = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+always @(*) y = c & d;,Combinational loop fault (Level-sensitive always block may cause combinational loops),9,18
+always @(*) y = c & rst;,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 clk = 1; join,Delay fault (Delay specification may cause timing issues),6,12
+case (d) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+always @(*) y = rst & b;,Combinational loop fault (Level-sensitive always block may cause combinational loops),9,18
+case (c) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+force clk = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge rst) q <= clk;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(*) y = c & clk;,Combinational loop fault (Level-sensitive always block may cause combinational loops),9,18
+force a = 1;,Contention fault (Force statement may cause signal contention),7,15
+assign y = a & d & c;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = clk ^ clk;,Bridging fault (Assignment may cause bridging faults),6,12
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+assign y = rst | rst;,Path delay fault (OR operations may cause path delays),5,10
+assign y = a & b & d;,Path delay fault (AND operations may cause path delays),5,10
+fork #5 a = 1; join,Delay fault (Delay specification may cause timing issues),6,12
+always @(*) y = d & c;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~clk;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = b ^ c;,Bridging fault (Assignment may cause bridging faults),6,12
+if (rst == 1) y = c;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = d | a;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(*) y = b & clk;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = clk ^ d;,Path delay fault (XOR operations may cause path delays),5,10
+assign y = b & b & a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = c | b;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+force rst = 1;,Contention fault (Force statement may cause signal contention),7,15
+always @(*) y = c & clk;,Path delay fault (AND operations may cause path delays),5,10
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+assign y = d ^ d;,Path delay fault (XOR operations may cause path delays),5,10
+if (clk == 1) y = d;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+wire [3:0] d;,Open fault (Wire declaration may lead to open circuits),4,8
+always @(posedge clk) q <= rst;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+assign y = a | c;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge rst) q <= a;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+force c = 1;,Contention fault (Force statement may cause signal contention),7,15
+always @(*) y = b & a;,Combinational loop fault (Level-sensitive always block may cause combinational loops),9,18
+fork #5 d = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+force b = 1;,Contention fault (Force statement may cause signal contention),7,15
+if (clk == 1) y = b;,Bridging fault (Assignment may cause bridging faults),6,12
+case (c) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = d ^ d;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = a | clk;,Path delay fault (OR operations may cause path delays),5,10
+case (rst) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = rst ^ c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+case (rst) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+wait (b == 1);,Livelock fault (Wait statement may cause livelock),9,18
+force rst = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge rst) q <= c;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+assign y = ~b;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+fork #5 d = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+if (rst == 1) y = b;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+assign y = a & b & c;,Path delay fault (AND operations may cause path delays),5,10
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+wait (c == 1);,Livelock fault (Wait statement may cause livelock),9,18
+assign y = c & clk & rst;,Path delay fault (AND operations may cause path delays),5,10
+force d = 1;,Contention fault (Force statement may cause signal contention),7,15
+assign y = a & d & c;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = a & b & a;,Bridging fault (Assignment may cause bridging faults),6,12
+if (rst == 1) y = c;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+assign y = ~clk;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+assign y = a & rst & a;,Bridging fault (Assignment may cause bridging faults),6,12
+case (b) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+wait (a == 1);,Livelock fault (Wait statement may cause livelock),9,18
+assign y = clk ^ rst;,Bridging fault (Assignment may cause bridging faults),6,12
+if (c == 1) y = b;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+if (a == 1) y = a;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+fork #5 d = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+if (b == 1) y = c;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+reg [3:0] d;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+always @(*) y = c & b;,Path delay fault (AND operations may cause path delays),5,10
+assign y = b ^ b;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+always @(*) y = c & rst;,Bridging fault (Assignment may cause bridging faults),6,12
+if (d == 1) y = a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = d ^ clk;,Path delay fault (XOR operations may cause path delays),5,10
+if (a == 1) y = b;,Bridging fault (Assignment may cause bridging faults),6,12
+reg [3:0] rst;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+always @(posedge rst) q <= c;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+if (clk == 1) y = d;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+assign y = d ^ a;,Path delay fault (XOR operations may cause path delays),5,10
+if (d == 1) y = c;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+assign y = ~b;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+assign y = clk & clk & clk;,Path delay fault (AND operations may cause path delays),5,10
+always @(posedge clk) q <= clk;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = b ^ rst;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~c;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+assign y = c | b;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = clk ^ b;,Path delay fault (XOR operations may cause path delays),5,10
+assign y = ~clk;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = rst ^ c;,Path delay fault (XOR operations may cause path delays),5,10
+fork #5 d = 1; join,Delay fault (Delay specification may cause timing issues),6,12
+wait (c == 1);,Livelock fault (Wait statement may cause livelock),9,18
+assign y = ~clk;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+reg [3:0] clk;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+if (d == 1) y = b;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~clk;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+reg [3:0] a;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+force a = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+assign y = b | a;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge clk) q <= b;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~d;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+if (d == 1) y = d;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+assign y = ~clk;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+if (c == 1) y = clk;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+if (c == 1) y = b;,Bridging fault (Assignment may cause bridging faults),6,12
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+assign y = c | d;,Path delay fault (OR operations may cause path delays),5,10
+wire [3:0] rst;,Open fault (Wire declaration may lead to open circuits),4,8
+always @(posedge rst) q <= a;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+wire [3:0] clk;,Open fault (Wire declaration may lead to open circuits),4,8
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+assign y = rst | rst;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+always @(posedge clk) q <= b;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+assign y = c & rst & rst;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = b & rst & clk;,Bridging fault (Assignment may cause bridging faults),6,12
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+assign y = ~d;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+always @(posedge rst) q <= a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = a ^ clk;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = b | d;,Path delay fault (OR operations may cause path delays),5,10
+fork #5 clk = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+fork #5 rst = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+assign y = ~c;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+if (rst == 1) y = c;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+always @(posedge rst) q <= clk;,Bridging fault (Assignment may cause bridging faults),6,12
+force rst = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+if (clk == 1) y = clk;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+assign y = ~b;,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 rst = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+always @(*) y = c & a;,Combinational loop fault (Level-sensitive always block may cause combinational loops),9,18
+wait (d == 1);,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = clk ^ d;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+wire [3:0] c;,Open fault (Wire declaration may lead to open circuits),4,8
+wait (clk == 1);,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = clk | b;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+if (rst == 1) y = rst;,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 a = 1; join,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge clk) q <= a;,Bridging fault (Assignment may cause bridging faults),6,12
+force clk = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+wait (clk == 1);,Bridging fault (Assignment may cause bridging faults),6,12
+case (d) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+always @(posedge rst) q <= c;,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 b = 1; join,Delay fault (Delay specification may cause timing issues),6,12
+always @(posedge clk) q <= clk;,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 d = 1; join,Bridging fault (Assignment may cause bridging faults),6,12
+force a = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+if (b == 1) y = c;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+assign y = ~b;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = clk & a & c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+force a = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge rst) q <= c;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+assign y = rst | clk;,Path delay fault (OR operations may cause path delays),5,10
+fork #5 c = 1; join,Bridging fault (Assignment may cause bridging faults),6,12
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+wire [3:0] rst;,Open fault (Wire declaration may lead to open circuits),4,8
+assign y = ~a;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+assign y = clk & rst & rst;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = b ^ rst;,Bridging fault (Assignment may cause bridging faults),6,12
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+always @(*) y = c & rst;,Combinational loop fault (Level-sensitive always block may cause combinational loops),9,18
+assign y = rst ^ a;,Path delay fault (XOR operations may cause path delays),5,10
+assign y = d ^ rst;,Path delay fault (XOR operations may cause path delays),5,10
+assign y = b | c;,Path delay fault (OR operations may cause path delays),5,10
+fork #5 c = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+assign y = c | rst;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = b ^ c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+always @(posedge clk) q <= b;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+assign y = c | rst;,Path delay fault (OR operations may cause path delays),5,10
+if (a == 1) y = b;,Bridging fault (Assignment may cause bridging faults),6,12
+force b = 1;,Contention fault (Force statement may cause signal contention),7,15
+fork #5 clk = 1; join,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge rst) q <= b;,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 rst = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+assign y = b & rst & c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = a & rst & a;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = c & clk & d;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+if (b == 1) y = clk;,Bridging fault (Assignment may cause bridging faults),6,12
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+assign y = d & clk & c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+wire [3:0] c;,Open fault (Wire declaration may lead to open circuits),4,8
+if (b == 1) y = a;,Bridging fault (Assignment may cause bridging faults),6,12
+if (a == 1) y = clk;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+fork #5 d = 1; join,Bridging fault (Assignment may cause bridging faults),6,12
+force a = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~rst;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+reg [3:0] b;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+assign y = c & a & d;,Path delay fault (AND operations may cause path delays),5,10
+assign y = d ^ clk;,Bridging fault (Assignment may cause bridging faults),6,12
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+fork #5 rst = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+if (c == 1) y = a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~clk;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = ~d;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+always @(posedge clk) q <= d;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+reg [3:0] rst;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+case (c) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+force a = 1;,Contention fault (Force statement may cause signal contention),7,15
+assign y = ~rst;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+wire [3:0] rst;,Open fault (Wire declaration may lead to open circuits),4,8
+fork #5 clk = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+assign y = d | b;,Path delay fault (OR operations may cause path delays),5,10
+wait (clk == 1);,Bridging fault (Assignment may cause bridging faults),6,12
+wire [3:0] b;,Open fault (Wire declaration may lead to open circuits),4,8
+reg [3:0] b;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+if (b == 1) y = c;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+assign y = ~c;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+fork #5 clk = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+assign y = rst & b & rst;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~clk;,Bridging fault (Assignment may cause bridging faults),6,12
+case (c) 0: y = 1; endcase,Stuck-at fault (Case statements may cause stuck-at faults),7,15
+always @(posedge rst) q <= b;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+assign y = rst & clk & a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = a & c & b;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+wire [3:0] c;,Open fault (Wire declaration may lead to open circuits),4,8
+always @(*) y = a & rst;,Combinational loop fault (Level-sensitive always block may cause combinational loops),9,18
+always @(*) y = d & d;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = a | rst;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = a & b & c;,Bridging fault (Assignment may cause bridging faults),6,12
+force a = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+case (c) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge clk) q <= clk;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+assign y = clk & clk & d;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+case (c) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+wait (c == 1);,Bridging fault (Assignment may cause bridging faults),6,12
+case (a) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+force a = 1;,Contention fault (Force statement may cause signal contention),7,15
+always @(*) y = c & a;,Path delay fault (AND operations may cause path delays),5,10
+fork #5 a = 1; join,Delay fault (Delay specification may cause timing issues),6,12
+force clk = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+"`include ""file.v""",Missing file fault (Include directive may cause missing file issues),3,5
+always @(posedge rst) q <= c;,Bridging fault (Assignment may cause bridging faults),6,12
+if (c == 1) y = rst;,Bridging fault (Assignment may cause bridging faults),6,12
+reg [3:0] d;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+always @(*) y = a & a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = clk ^ c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+wire [3:0] rst;,Open fault (Wire declaration may lead to open circuits),4,8
+always @(*) y = rst & b;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = clk & clk & clk;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+always @(*) y = c & rst;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = b & b & d;,Bridging fault (Assignment may cause bridging faults),6,12
+wire [3:0] clk;,Open fault (Wire declaration may lead to open circuits),4,8
+case (d) 0: y = 1; endcase,Stuck-at fault (Case statements may cause stuck-at faults),7,15
+reg [3:0] b;,Stuck-at fault (Register declaration may cause stuck-at faults),7,15
+assign y = a & clk & b;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+fork #5 a = 1; join,Race condition fault (Fork-join may cause race conditions),8,20
+assign y = b | a;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = ~clk;,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge clk) q <= clk;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+assign y = rst & c & clk;,Bridging fault (Assignment may cause bridging faults),6,12
+fork #5 a = 1; join,Delay fault (Delay specification may cause timing issues),6,12
+assign y = c | d;,Path delay fault (OR operations may cause path delays),5,10
+if (b == 1) y = clk;,Bridging fault (Assignment may cause bridging faults),6,12
+wait (d == 1);,Livelock fault (Wait statement may cause livelock),9,18
+always @(posedge rst) q <= rst;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+assign y = rst & c & rst;,Bridging fault (Assignment may cause bridging faults),6,12
+wait (b == 1);,Bridging fault (Assignment may cause bridging faults),6,12
+case (c) 0: y = 1; endcase,Stuck-at fault (Case statements may cause stuck-at faults),7,15
+if (a == 1) y = c;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+fork #5 b = 1; join,Bridging fault (Assignment may cause bridging faults),6,12
+always @(posedge rst) q <= d;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+always @(posedge clk) q <= d;,Bridging fault (Non-blocking assignment may cause bridging faults),6,12
+fork #5 rst = 1; join,Delay fault (Delay specification may cause timing issues),6,12
+force c = 1;,Bridging fault (Assignment may cause bridging faults),6,12
+if (clk == 1) y = rst;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = c ^ c;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+case (d) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = b & b & b;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = c ^ b;,Path delay fault (XOR operations may cause path delays),5,10
+assign y = a & clk & b;,Path delay fault (AND operations may cause path delays),5,10
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+if (d == 1) y = b;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = d ^ b;,Path delay fault (XOR operations may cause path delays),5,10
+case (d) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = clk ^ d;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = ~b;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+if (clk == 1) y = clk;,Bridging fault (Assignment may cause bridging faults),6,12
+case (c) 0: y = 1; endcase,Stuck-at fault (Case statements may cause stuck-at faults),7,15
+assign y = ~a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = rst ^ clk;,Bridging fault (Continuous assignment may cause bridging faults),6,12
+assign y = ~rst;,Stuck-at fault (Inverter may cause stuck-at faults),7,15
+assign y = rst ^ b;,Path delay fault (XOR operations may cause path delays),5,10
+if (c == 1) y = b;,Stuck-at fault (Conditional statements may cause stuck-at faults),7,15
+always @(posedge clk) q <= d;,Clock skew fault (Edge-triggered always block may cause clock skew),8,20
+force rst = 1;,Contention fault (Force statement may cause signal contention),7,15
+wait (c == 1);,Livelock fault (Wait statement may cause livelock),9,18
+assign y = c | b;,Path delay fault (OR operations may cause path delays),5,10
+`define SIZE 8,Macro expansion fault (Macro definition may cause expansion issues),3,5
+assign y = rst & rst & b;,Path delay fault (AND operations may cause path delays),5,10
+assign y = ~a;,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = rst & b & rst;,Path delay fault (AND operations may cause path delays),5,10
+case (rst) 0: y = 1; endcase,Bridging fault (Assignment may cause bridging faults),6,12
+assign y = d | a;,Path delay fault (OR operations may cause path delays),5,10

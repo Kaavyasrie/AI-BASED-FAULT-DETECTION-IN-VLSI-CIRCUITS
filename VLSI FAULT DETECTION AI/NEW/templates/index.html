@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verilog Fault Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(10, 29, 55, 0.9), rgba(10, 29, 55, 0.9)),
+                        url('https://images.unsplash.com/photo-1617475157577-7f66d0a00b2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(10, 29, 55, 0.9);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2em;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 8px 12px;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+
+        nav ul li .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 29, 55, 0.95);
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            width: 200px;
+            z-index: 150;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul li:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Specific styling for the Overview dropdown */
+        .overview-dropdown {
+            width: calc(100vw - 170px) !important;
+            left: 0 !important;
+            transform: none;
+            padding: 20px 40px;
+            text-align: left;
+        }
+
+        .overview-column {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .overview-column h3 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        .overview-column h4 {
+            font-size: 1em;
+            margin-bottom: 10px;
+            font-weight: 400;
+            color: #00ffcc;
+        }
+
+        .overview-column p {
+            font-size: 0.9em;
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        /* Styling for Products dropdown */
+        .products-dropdown {
+            width: 400px !important;
+            padding: 30px !important;
+        }
+
+        .products-column ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .products-column li {
+            font-size: 0.95em;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .products-column li:before {
+            content: "•";
+            color: #007bff;
+            position: absolute;
+            left: 0;
+        }
+
+        .products-column strong {
+            font-size: 1.05em;
+            font-weight: 600;
+        }
+
+        /* Styling for Developer dropdown */
+        .developer-dropdown {
+            width: 500px !important;
+            padding: 30px !important;
+        }
+
+        .developer-column h3 {
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+            color: #007bff;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 5px;
+        }
+
+        .developer-column ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .developer-column li {
+            font-size: 0.95em;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .developer-column li:before {
+            content: "•";
+            color: #007bff;
+            position: absolute;
+            left: 0;
+        }
+
+        .developer-column strong {
+            font-size: 1.05em;
+            font-weight: 600;
+        }
+
+        /* Styling for Support & Training dropdown */
+        .support-training-dropdown {
+            width: 500px !important;
+            padding: 30px !important;
+        }
+
+        .support-training-column h3 {
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+            color: #007bff;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 5px;
+        }
+
+        .support-training-column ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .support-training-column li {
+            font-size: 0.95em;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .support-training-column li:before {
+            content: "•";
+            color: #007bff;
+            position: absolute;
+            left: 0;
+        }
+
+        .support-training-column strong {
+            font-size: 1.05em;
+            font-weight: 600;
+        }
+
+        /* Styling for Upcoming Enhancements dropdown */
+        .enhancements-dropdown {
+            width: 600px !important;
+            padding: 30px !important;
+        }
+
+        .enhancements-column h3 {
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+            color: #007bff;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 5px;
+        }
+
+        .enhancements-column ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .enhancements-column li {
+            font-size: 0.95em;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .enhancements-column li:before {
+            content: "•";
+            color: #007bff;
+            position: absolute;
+            left: 0;
+        }
+
+        .enhancements-column strong {
+            font-size: 1.05em;
+            font-weight: 600;
+        }
+
+        .enhancements-column p {
+            font-size: 0.95em;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .header-icons img {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .header-icons a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .header-icons a:hover {
+            color: #007bff;
+        }
+
+        .contact-details, .profile-details {
+            display: none;
+            position: absolute;
+            background: rgba(10, 29, 55, 0.95);
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            line-height: 1.5;
+            z-index: 150;
+            white-space: pre-line;
+            right: 0;
+            top: 100%;
+        }
+
+        .header-icons span:hover .contact-details,
+        .header-icons span:hover .profile-details {
+            display: block;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 29, 55, 0.7), rgba(10, 29, 55, 0.7)),
+                        url('https://images.unsplash.com/photo-1617475157577-7f66d0a00b2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            animation: zoomBackground 20s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        .chip-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 29, 55, 0.7), rgba(10, 29, 55, 0.7)),
+                        url('https://www.shutterstock.com/image-illustration/abstract-futuristic-computer-chip-3d-600nw-2276349513.jpg') center/cover no-repeat;
+            z-index: -2;
+        }
+
+        @keyframes zoomBackground {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.2);
+            }
+        }
+
+        .quote-carousel {
+            position: relative;
+            max-width: 800px;
+            width: 100%;
+            padding: 0 60px;
+        }
+
+        .quote-slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .quote-slide.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .quote-slide:nth-child(1) {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('https://www.transparenttextures.com/patterns/circuit.png') center/cover no-repeat;
+        }
+
+        .quote-slide:nth-child(2) {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('https://www.transparenttextures.com/patterns/diagonal-stripes.png') center/cover no-repeat;
+        }
+
+        .quote-slide:nth-child(3) {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('https://www.transparenttextures.com/patterns/graphy-dark.png') center/cover no-repeat;
+        }
+
+        .quote-slide:nth-child(4) {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('https://www.transparenttextures.com/patterns/hexellence.png') center/cover no-repeat;
+        }
+
+        .quote-slide:nth-child(5) {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('https://www.transparenttextures.com/patterns/3px-tile.png') center/cover no-repeat;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quote-slide p {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .quote-slide .author {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            font-weight: 500;
+            color: #00ffcc;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: calc(100% + 100px);
+            left: -50px;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-btn {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1em;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-btn:hover {
+            background: rgba(0, 123, 255, 0.3);
+            border-color: #007bff;
+            color: #007bff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            margin: 100px auto;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .project-info, .advantages {
+            margin-bottom: 40px;
+        }
+
+        .project-info h2, .advantages h2 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .project-info p, .advantages p {
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .advantages ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .advantages li {
+            margin-bottom: 12px;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .upload-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .upload-section input[type="file"] {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #007bff;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            display: inline-block;
+        }
+
+        .upload-btn:hover {
+            background: #0056b3;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            background: #1b263b;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            margin-top: 20px;
+            font-weight: 300;
+        }
+
+        .submit-btn {
+            background: #007bff;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 30px auto;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        .toggle-btn {
+            background: #28a745;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .toggle-btn:hover {
+            background: #218838;
+        }
+
+        .predictions-container {
+            margin-top: 40px;
+        }
+
+        .prediction-group {
+            position: relative;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .prediction-group.hidden {
+            display: none;
+        }
+
+        .severity-rank {
+            background: #dc3545;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 500;
+            margin: 0 auto 15px auto;
+        }
+
+        .prediction-box {
+            background: rgba(255, 252, 252, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+
+        .prediction-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .code-box {
+            border-left: 3px solid #007bff;
+            padding-left: 10px;
+        }
+
+        .fault-box {
+            border-left: 3px solid #dc3545;
+            padding-left: 10px;
+        }
+
+        .severity-box {
+            border-left: 3px solid #ffc107;
+            padding-left: 10px;
+        }
+
+        .occurrence-box {
+            border-left: 3px solid #28a745;
+            padding-left: 10px;
+        }
+
+        .code-line {
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
+            color: #007bff;
+        }
+
+        .fault-text {
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+        .severity-text {
+            color: #ffc107;
+            font-weight: 500;
+        }
+
+        .occurrence-text {
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .no-predictions {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .warning-message {
+            color: #ffc107;
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .upload-btn, .submit-btn, .toggle-btn {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 20px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .quote-slide p {
+                font-size: 1.5em;
+            }
+
+            .quote-slide .author {
+                font-size: 0.9em;
+            }
+
+            nav ul li .dropdown-content {
+                position: static;
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            .overview-dropdown {
+                width: 100% !important;
+                left: 0 !important;
+                padding: 20px;
+            }
+
+            .products-dropdown, .developer-dropdown, .support-training-dropdown, .enhancements-dropdown {
+                width: 100% !important;
+            }
+
+            .overview-column h3 {
+                margin-bottom: 5px;
+            }
+
+            .overview-column p {
+                font-size: 0.9em;
+            }
+
+            .carousel-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9em;
+            }
+
+            .header-icons {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">FAULT AI</div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="#">Overview</a>
+                    <div class="dropdown-content overview-dropdown">
+                        <div class="overview-column">
+                            <h3>FAULT AI</h3>
+                            <h4>Built to Predict Backend Faults from RTL Code — Instantly</h4>
+                            <p>FAULT AI is designed to anticipate faults in the backend design stage by analyzing the RTL code at the frontend level itself.</p>
+                            <p>It scans symbol patterns, understands context, and uses machine learning to flag potential hardware faults early.</p>
+                            <p>This proactive detection helps VLSI engineers catch errors before synthesis or layout begins.</p>
+                            <p>Powered by a curated dataset and intelligent models, it acts like a "code doctor" for your Verilog.</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Products</a>
+                    <div class="dropdown-content products-dropdown">
+                        <div class="products-column">
+                            <ul>
+                                <li><strong>Severity Checker</strong> Evaluates how critical detected faults might be</li>
+                                <li><strong>Occurrence Predictor</strong> Estimates likelihood of faults occurring</li>
+                                <li><strong>Fault Predictor</strong> Identifies potential faults in RTL code</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Developer</a>
+                    <div class="dropdown-content developer-dropdown">
+                        <div class="developer-column">
+                            <h3>I Develop For</h3>
+                            <ul>
+                                <li>RTL Designers</li>
+                                <li>VLSI Verification Engineers</li>
+                                <li>EDA Tool Integrators</li>
+                            </ul>
+                            
+                            <h3>Tools & Software</h3>
+                            <ul>
+                                <li>Python (scikit-learn, pandas, numpy)</li>
+                                <li>Verilog HDL</li>
+                                <li>Google Colab / Jupyter Notebook</li>
+                                <li>Scikit-learn for ML models</li>
+                            </ul>
+                            
+                            <h3>Resources</h3>
+                            <ul>
+                                <li>Context-Aware Fault Dataset (500+ entries)</li>
+                                <li>Preprocessed Verilog Fault Samples</li>
+                                <li>Fault Classification Reports</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Support & Training</a>
+                    <div class="dropdown-content support-training-dropdown">
+                        <div class="support-training-column">
+                            <h3>SUPPORT</h3>
+                            <ul>
+                                <li><strong>FAULT AI User Community</strong> Connect with other users</li>
+                                <li><strong>Detailed Documentation</strong> Comprehensive guides and manuals</li>
+                                <li><strong>Download Center</strong> Access datasets and models</li>
+                            </ul>
+                            
+                            <h3>TRAINING & EDUCATION</h3>
+                            <ul>
+                                <li><strong>RTL Fault Detection Bootcamp</strong> Intensive hands-on training</li>
+                                <li><strong>Fault Classification Labs</strong> Practical exercises</li>
+                                <li><strong>Academic Collaboration</strong> Partner with researchers</li>
+                            </ul>
+                            
+                            <h3>VERIFIED PARTNERS</h3>
+                            <ul>
+                                <li><strong>Design Automation Partners</strong> EDA tool integration</li>
+                                <li><strong>AI/ML Training Partners</strong> Machine learning experts</li>
+                                <li><strong>Semiconductor Verification Partners</strong> Industry validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Upcoming Enhancements</a>
+                    <div class="dropdown-content enhancements-dropdown">
+                        <div class="enhancements-column">
+                            <h3>Our Mission</h3>
+                            <p>To empower hardware designers, verification engineers.</p>
+                            
+                            <h3>Our Expertise</h3>
+                            <ul>
+                                <li><strong>Fault prediction and classification</strong> Accurate severity assessment</li>
+                            </ul>
+                            
+                            <h3>Future Innovations</h3>
+                            <ul>
+                                <li><strong>EDA Tool Integration</strong> Real-time alerts in Vivado/Quartus</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <span>
+                <img src="https://www.google.com/gmail/about/static-2.0/images/logo-gmail.png?fingerprint=c2baf142" alt="Gmail Logo" style="width: 28px; height: 28px;">
+                <div class="contact-details">
+                    <strong>Contact Information</strong>
+                    Email: kaavyasrie05@gmail.com
+                    Phone: +91 9363277230
+                    LinkedIn: linkedin.com/in/kaavyasrie
+                    Instagram: instagram.com/kaavyasrie
+                </div>
+            </span>
+            <span>
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile Logo" style="width: 28px; height: 28px;">
+                <div class="profile-details">
+                    <strong>Developer Profile</strong>
+                    Name: Kaavyasrie V T
+                    Role: Software Engineer
+                    Focus: Fault AI Innovation
+                    Expertise: VLSI
+                </div>
+            </span>
+        </div>
+    </header>
+    <div class="hero-section">
+        <div class="chip-background"></div>
+        <div class="hero-background"></div>
+        
+        <div class="quote-carousel">
+            <div class="quote-slide active">
+                <p>"Innovation distinguishes between a leader and a follower."</p>
+                <div class="author">– Steve Jobs</div>
+            </div>
+            <div class="quote-slide">
+                <p>"Technology is best when it brings people together."</p>
+                <div class="author">– Matt Mullenweg</div>
+            </div>
+            <div class="quote-slide">
+                <p>"The advance of technology is based on making it fit in so that you don't really even notice it."</p>
+                <div class="author">– Bill Gates</div>
+            </div>
+            <div class="quote-slide">
+                <p>"It's not a faith in technology. It's faith in people."</p>
+                <div class="author">– Steve Jobs</div>
+            </div>
+            <div class="quote-slide">
+                <p>"The art challenges the technology, and the technology inspires the art."</p>
+                <div class="author">– John Lasseter</div>
+            </div>
+            <div class="carousel-buttons">
+                <button class="carousel-btn" onclick="changeQuote(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn" onclick="changeQuote(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Verilog Fault Predictor</h1>
+        {% if error %}
+            <div class="error-message">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+        <div class="project-info">
+            <h2>About the Project</h2>
+            <p>This tool analyzes Verilog code and identifies potential faults, automatically excluding module declarations.</p>
+        </div>
+        <div class="advantages">
+            <h2>Key Features</h2>
+            <ul>
+                <li>Shows top 3 most severe faults by default</li>
+                <li>Option to view all detected faults</li>
+                <li>Automatically excludes module/endmodule declarations</li>
+            </ul>
+        </div>
+        <form id="uploadForm" enctype="multipart/form-data" method="post">
+            <div class="upload-section">
+                <label for="fileInput" class="upload-btn">Upload Verilog File</label>
+                <input type="file" id="fileInput" name="file" accept=".v,.sv">
+            </div>
+            <textarea name="code" id="verilogCode" rows="10" placeholder="Or paste your Verilog code here..."></textarea>
+            <input type="submit" value="Analyze for Faults" class="submit-btn">
+        </form>
+        <div id="predictionsContainer" class="predictions-container">
+            <!-- Predictions will be displayed here -->
+            <div class="no-predictions">
+                <p>Upload a Verilog file or paste code to see detected faults!</p>
+                <p class="warning-message">Module declarations will be automatically excluded</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Dropdown exclusivity
+        document.addEventListener('DOMContentLoaded', () => {
+            const navItems = document.querySelectorAll('nav ul li');
+            
+            navItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    // Hide all dropdowns
+                    document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                        dropdown.style.display = 'none';
+                    });
+                    // Show the current dropdown
+                    const dropdown = item.querySelector('.dropdown-content');
+                    if (dropdown) {
+                        dropdown.style.display = 'block';
+                    }
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    // Keep dropdown visible until another is hovered
+                    const dropdown = item.querySelector('.dropdown-content');
+                    if (dropdown) {
+                        dropdown.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Quote carousel functionality
+        let currentQuote = 0;
+        const quotes = document.querySelectorAll('.quote-slide');
+
+        function showQuote(index) {
+            quotes.forEach((quote, i) => {
+                quote.classList.remove('active');
+                if (i === index) {
+                    quote.classList.add('active');
+                }
+            });
+        }
+
+        function changeQuote(direction) {
+            currentQuote += direction;
+            if (currentQuote < 0) {
+                currentQuote = quotes.length - 1;
+            } else if (currentQuote >= quotes.length) {
+                currentQuote = 0;
+            }
+            showQuote(currentQuote);
+        }
+
+        // Auto-rotate quotes every 5 seconds
+        setInterval(() => {
+            changeQuote(1);
+        }, 5000);
+
+        // Form submission handler
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const verilogCode = document.getElementById('verilogCode').value;
+            
+            // Simulate analysis (in a real app, this would be an API call)
+            setTimeout(() => {
+                analyzeVerilogCode(verilogCode);
+            }, 1000);
+        });
+
+        // File input handler
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('verilogCode').value = e.target.result;
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Function to analyze Verilog code and display results
+        function analyzeVerilogCode(code) {
+            const predictionsContainer = document.getElementById('predictionsContainer');
+            
+            if (!code.trim()) {
+                predictionsContainer.innerHTML = `
+                    <div class="error-message">
+                        <p>Please enter some Verilog code to analyze</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Simulate analysis results (replace with actual analysis in a real app)
+            const lines = code.split('\n');
+            const predictions = [];
+            
+            // Simple pattern matching for demonstration
+            lines.forEach((line, index) => {
+                if (line.includes('module') || line.includes('endmodule')) {
+                    return; // Skip module declarations
+                }
+                
+                if (line.includes('=') && !line.includes('<=') && !line.includes('==')) {
+                    predictions.push({
+                        line: index + 1,
+                        code: line.trim(),
+                        fault: "Potential blocking assignment in combinational logic",
+                        severity: 7.5,
+                        occurrence: 85
+                    });
+                }
+                
+                if (line.includes('if') && !line.includes('else')) {
+                    predictions.push({
+                        line: index + 1,
+                        code: line.trim(),
+                        fault: "Incomplete conditional statement (missing else)",
+                        severity: 6.0,
+                        occurrence: 70
+                    });
+                }
+                
+                if (line.includes('case') && !line.includes('endcase')) {
+                    predictions.push({
+                        line: index + 1,
+                        code: line.trim(),
+                        fault: "Incomplete case statement",
+                        severity: 8.0,
+                        occurrence: 90
+                    });
+                }
+            });
+            
+            if (predictions.length > 0) {
+                // Sort by severity
+                predictions.sort((a, b) => b.severity - a.severity);
+                
+                let html = `
+                    <button id="toggleFaults" class="toggle-btn">View All Faults</button>
+                `;
+                
+                predictions.forEach((pred, index) => {
+                    html += `
+                        <div class="prediction-group ${index >= 3 ? 'hidden' : ''}" data-index="${index + 1}">
+                            <div class="severity-rank">#${index + 1}</div>
+                            <div class="prediction-box code-box">
+                                <p><span class="code-line">Line ${pred.line}:</span> ${pred.code}</p>
+                            </div>
+                            <div class="prediction-box fault-box">
+                                <p class="fault-text">Fault: ${pred.fault}</p>
+                            </div>
+                            <div class="prediction-box severity-box">
+                                <p class="severity-text">Severity: ${pred.severity.toFixed(1)}</p>
+                            </div>
+                            <div class="prediction-box occurrence-box">
+                                <p class="occurrence-text">Occurrence: ${Math.round(pred.occurrence)}%</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                predictionsContainer.innerHTML = html;
+                
+                // Add toggle functionality
+                document.getElementById('toggleFaults').addEventListener('click', function() {
+                    const button = this;
+                    const isShowingAll = button.textContent === 'Show Top 3 Faults';
+                    const predictionGroups = document.querySelectorAll('.prediction-group');
+
+                    predictionGroups.forEach(group => {
+                        const index = parseInt(group.getAttribute('data-index'));
+                        if (isShowingAll) {
+                            if (index > 3) {
+                                group.classList.add('hidden');
+                            }
+                        } else {
+                            group.classList.remove('hidden');
+                        }
+                    });
+
+                    button.textContent = isShowingAll ? 'View All Faults' : 'Show Top 3 Faults';
+                });
+            } else {
+                predictionsContainer.innerHTML = `
+                    <div class="no-predictions">
+                        <p>No significant faults found in the implementation code.</p>
+                        <p class="warning-message">(Module declarations are automatically excluded from analysis)</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
