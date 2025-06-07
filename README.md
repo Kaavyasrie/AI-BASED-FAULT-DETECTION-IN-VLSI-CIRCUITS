@@ -11,29 +11,6 @@
 - **High Accuracy**: Achieves 95% fault detection accuracy with response times under 2 seconds.
 - **Scalability**: Handles diverse Verilog designs with a lightweight Random Forest model.
 
-## Project Structure
-
-```
-FaultAI/
-├── backend/
-│   ├── fault_prediction_model.py  # Random Forest model for fault prediction
-│   ├── server.py                 # Flask backend server
-│   └── uploads/                  # Directory for uploaded Verilog files
-├── dataset/
-│   ├── dataset.py                # Script to generate verilog_fault_dataset.csv
-│   └── verilog_fault_dataset.csv # Dataset with 2000 Verilog snippets
-├── frontend/
-│   ├── index.html               # Main HTML file for the web interface
-│   ├── src/                     # React components and assets
-│   └── styles/                  # Tailwind CSS styles
-├── test_files/                  # Sample Verilog files for testing
-│   ├── and_fault.v
-│   ├── or_fault.v
-│   └── ... (10 total snippets)
-├── README.md                    # Project documentation
-└── requirements.txt             # Python dependencies
-```
-
 ## Prerequisites
 
 - **Python 3.12**: For backend scripts and Flask server.
@@ -45,8 +22,7 @@ FaultAI/
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/[your-username]/FaultAI.git
-   cd FaultAI
+   git clone https://github.com/Kaavyasrie/AI-BASED-FAULT-DETECTION-IN-VLSI-CIRCUITS.git
    ```
 
 2. **Set Up the Backend**:
@@ -121,18 +97,10 @@ FaultAI/
 
 - **Only “Potential blocking assignment” Fault Detected**:
   - Ensure you’re using the updated `fault_prediction_model.py`, which fixes parsing to prioritize symbols like `&` over `=`.
-  - Retrain the model:
-    ```bash
-    python backend/fault_prediction_model.py
-    ```
   - Verify `verilog_fault_dataset.csv` is in the `dataset/` folder.
 
 - **Frontend Not Loading**:
   - Ensure Live Server is running and `npm install` was executed in the `frontend/` directory.
-
-- **Backend Errors**:
-  - Check if all dependencies are installed (`requirements.txt`).
-  - Ensure the Flask server is running (`python server.py`).
 
 ## Future Work
 
@@ -150,7 +118,7 @@ FaultAI/
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contributors
+## Contributor
 
-- [Your Name] ([Your GitHub Profile](https://github.com/[your-username]))
-- [Teammate Name, if applicable] ([Teammate GitHub Profile](https://github.com/[teammate-username]))
+- [Kaavyasrie V T] ((https://github.com/Kaavyasrie))
+
